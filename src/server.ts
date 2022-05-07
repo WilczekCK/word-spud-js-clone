@@ -5,17 +5,21 @@ import * as path from "path";
 const app = express();
 app.set("port", process.env.PORT || 3000);
 
-let http = require("http").Server(app);
-let io = require("socket.io")(http);
+let http = require("http");
+let server = http.createServer(app);
+
+const ioServer = socketio.Server;
+const io = new ioServer(server);
 
 app.get("/", (req: any, res: any) => {
-  res.sendFile(path.resolve("./client/index.html"));
+    res.sendFile(path.resolve("./client/index.html"));
+});
+  
+io.on('connection', (socket) => {
+    console.log('a user connected');
 });
 
-io.on("connection", function(socket: any) {
-  console.log("a user connected");
-});
 
-const server = http.listen(3000, function() {
+server.listen(3000, function() {
   console.log("listening on *:3000");
 });
