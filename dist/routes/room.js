@@ -1,7 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = require("../app");
-app_1.app.get(`/room`, (req, res) => {
+exports.router = void 0;
+const express = require("express");
+const router = express.Router();
+exports.router = router;
+router.get(`/room`, (req, res) => {
     res.send('Room route');
 });
 //# sourceMappingURL=room.js.map

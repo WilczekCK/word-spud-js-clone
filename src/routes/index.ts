@@ -1,6 +1,9 @@
 import * as path from "path";
+import * as express from "express";
 import { app } from '../app';
 
-app.get(`/`, (req: any, res: any) => {
-    res.sendFile(path.resolve(`./client/index.html`));
-});
+import {router as game} from './game';
+import {router as room} from './room';
+const routes = [ game, room ];
+
+export { routes };

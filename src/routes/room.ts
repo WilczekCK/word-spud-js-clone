@@ -1,6 +1,11 @@
 import * as path from "path"; //res.sendFile(path.resolve(`./client/${route}.html`));
+import * as express from "express";
 import { app } from '../app';
 
-app.get(`/room`, (req: any, res: any) => {
+const router = express.Router()
+
+router.get(`/room`, (req: any, res: any) => {
     res.send('Room route');
 });
+
+export {router};
