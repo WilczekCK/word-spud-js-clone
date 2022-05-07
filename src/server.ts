@@ -1,8 +1,8 @@
 import {app} from './app';
+import * as http from 'http';
 import * as socketio from "socket.io";
 
 /* Node */
-const http = require("http");
 let server = http.createServer(app);
 
 server.listen(3000, function() {
