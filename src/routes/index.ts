@@ -1,9 +1,15 @@
 import * as path from "path";
 import * as express from "express";
-import { app } from '../app';
 
 import {router as game} from './game';
 import {router as room} from './room';
-const routes = [ game, room ];
+
+const router = express.Router()
+
+router.get(`/`, (req: any, res: any) => {
+    res.sendFile(path.resolve(`./client/index.html`));
+});
+
+const routes = [ game, room, router ];
 
 export { routes };
