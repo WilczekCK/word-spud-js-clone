@@ -2,7 +2,8 @@ import {app} from './app';
 import * as http from 'http';
 import * as socketio from "socket.io";
 
-/* Node */
+/* Node */  //res.sendFile(path.resolve(`./client/${route}.html`));
+
 let server = http.createServer(app);
 
 server.listen(3000, function() {
