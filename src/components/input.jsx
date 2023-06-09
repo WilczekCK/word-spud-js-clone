@@ -9,7 +9,13 @@ function Input(props) {
         const letterUsed = e.key;
         const {debug} = config;
 
-        if (['Enter', ' ', 'Tab', 'Space'].indexOf(keyPressed) > -1) {
+        if (keyPressed === 'Backspace') {
+            let actualStr = letters;
+            actualStr = actualStr.slice(0, -1);
+
+            setLetters(actualStr);
+            props.letterChange(actualStr);
+        } else if (['Enter', ' ', 'Tab', 'Space'].indexOf(keyPressed) > -1) {
             if (debug) console.log(`Input.jsx: Special key: ${keyPressed} is used in script!`); 
         } else if (letterUsed.length > 1) {
             if (debug) console.log(`Input.jsx: Special key: ${keyPressed} is not used in script!`); 
