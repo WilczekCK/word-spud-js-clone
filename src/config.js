@@ -1,4 +1,4 @@
 const Global = {};
-Global.debug = true;
+Global.debug = false;
 
 export default Global;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import config from '../config';
 
-function Input() {
+function Input(props) {
     const [letters, setLetters] = useState('');
 
     const onKeypress = (e) => {
@@ -15,7 +15,9 @@ function Input() {
             if (debug) console.log(`Input.jsx: Special key: ${keyPressed} is not used in script!`); 
         } else {
             if (debug) console.log(`Input.jsx: Key appended: ${keyPressed}`); 
+            
             setLetters(letters + letterUsed);
+            props.letterChange(letters + letterUsed);
         }
     }
 

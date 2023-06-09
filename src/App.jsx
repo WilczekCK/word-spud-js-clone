@@ -1,14 +1,18 @@
 import './App.css'
-import config from './config';
+import { useState } from 'react';
 import Input from './components/input';
 
-const isDebug = true;
-
 function App() {
+  const [word, setWord] = useState('');
+
+  const changeWord = (v) => {
+    setWord(v);
+  }
+
   return (
     <>
       <h1>Word spud</h1>
-      <Input />
+      <Input letterChange={(v) => changeWord(v)}/>
     </>
   )
 }
