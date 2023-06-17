@@ -1,18 +1,21 @@
 import './App.css'
 import { useState } from 'react';
 import Input from './components/input';
+import useEndOfWord from './hooks/useEndOfWord';
 
 function App() {
   const [word, setWord] = useState('');
 
   const changeWord = (v) => {
     setWord(v);
+    console.log( useEndOfWord(v) );
   }
 
   return (
     <>
       <h1>Word spud</h1>
-      <Input letterChange={(v) => changeWord(v)}/>
+      {word}
+      <Input appendedWord={(v) => changeWord(v)}/>
     </>
   )
 }

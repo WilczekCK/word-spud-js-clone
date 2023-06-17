@@ -11,10 +11,19 @@ function Input(props) {
         const {debug} = config;
 
         if (keyPressed === 'Backspace') {
+            debug && console.log(`Input.jsx: Remove last letter, backspace used!`); 
+
             setLetters( letters.slice(0, -1) )
-            // props.letterChange(letters);
         } else if (['Enter', ' ', 'Tab', 'Space'].indexOf(keyPressed) > -1) {
             debug && console.log(`Input.jsx: Special key: ${keyPressed} is used in script!`); 
+
+            // Append the word and clear inputs!
+            if (keyPressed === 'Enter') {
+                props.appendedWord(letters);
+                
+                setLetter('');
+                setLetters([]);
+            }
         } else if (letterUsed.length > 1) {
             debug && console.log(`Input.jsx: Special key: ${keyPressed} is not used in script!`); 
         } else {
@@ -22,7 +31,6 @@ function Input(props) {
             
             setLetters([...letters, letterUsed]);
             setLetter('');
-            // props.letterChange(letters);
         }
     }
 
