@@ -8,7 +8,7 @@ function App() {
 
   const changeWord = (v) => {
     setWords([...words, v]);
-    console.log( useSubmitValidator(v, words[words.length-1]) );
+    useSubmitValidator(v, words[words.length-1]);
   }
 
   return (
