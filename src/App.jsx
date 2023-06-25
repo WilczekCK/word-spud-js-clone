@@ -1,14 +1,14 @@
 import './App.css'
 import { useState } from 'react';
 import Input from './components/input';
-import useEndOfWord from './hooks/useEndOfWord';
+import useSubmitValidator from './hooks/useSubmitValidator';
 
 function App() {
   const [words, setWords] = useState([]);
 
   const changeWord = (v) => {
     setWords([...words, v]);
-    console.log( useEndOfWord(v) );
+    console.log( useSubmitValidator(v, words[words.length-1]) );
   }
 
   return (
