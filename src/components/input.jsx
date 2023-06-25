@@ -48,7 +48,7 @@ function Input(props) {
     }
 
     return (
-        <>
+        <div className={`player__container error--bounce`}>
             {
                 letters.map((letter, key) => (
                     <InputField key={key} letterCount={key} value={letter}/>
@@ -62,7 +62,7 @@ function Input(props) {
                 onKeyDown={onKeypress}
                 value={letter}
             />
-        </>
+        </div>
     )
 }
 
