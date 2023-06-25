@@ -17,7 +17,7 @@ function Input(props) {
             setLetters( letters.slice(0, -1) )
 
             console.log(letters.length);
-            if (letters.length == 1) { // looks like a bug...
+            if (letters.length <= 1) { // looks like a bug...
                 setIsValid(true);
             }
         } else if (['Enter', ' ', 'Tab', 'Space'].indexOf(keyPressed) > -1) {
