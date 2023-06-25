@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import config from '../config';
+import styles from '../assets/animations.css'
 
 function Input(props) {
     const [letter, setLetter]   = useState('');
