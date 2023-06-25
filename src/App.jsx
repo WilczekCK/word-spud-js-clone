@@ -7,8 +7,12 @@ function App() {
   const [words, setWords] = useState([]);
 
   const changeWord = (v) => {
-    setWords([...words, v]);
-    useSubmitValidator(v, words[words.length-1]);
+    const {lastLetter, wordCreated, isCorrect} = useSubmitValidator(v, words[words.length-1]);
+    if (isCorrect) {
+      setWords([...words, v]);
+    }
+    
+    return isCorrect;
   }
 
   return (

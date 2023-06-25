@@ -5,6 +5,7 @@ import styles from '../assets/animations.css'
 function Input(props) {
     const [letter, setLetter]   = useState('');
     const [letters, setLetters] = useState(['d', 'u', 'p', 'a']);
+    const [isValid, setIsValid] = useState(true);
 
    const onKeypress = (e) => {
         const keyPressed = e.code;
@@ -13,17 +14,25 @@ function Input(props) {
 
         if (keyPressed === 'Backspace') {
             debug && console.log(`Input.jsx: Remove last letter, backspace used!`); 
-
             setLetters( letters.slice(0, -1) )
+
+            console.log(letters.length);
+            if (letters.length == 1) { // looks like a bug...
+                setIsValid(true);
+            }
         } else if (['Enter', ' ', 'Tab', 'Space'].indexOf(keyPressed) > -1) {
             debug && console.log(`Input.jsx: Special key: ${keyPressed} is used in script!`); 
 
             // Append the word and clear inputs!
             if (keyPressed === 'Enter') {
-                props.appendedWord(letters);
+                const isWordValid = props.appendedWord(letters);
+                setIsValid(isWordValid);
                 
-                setLetter('');
-                setLetters([]);
+                if (isWordValid) {
+                    setLetter('');
+                    setLetters([]);    
+                }
+                
             }
         } else if (letterUsed.length > 1) {
             debug && console.log(`Input.jsx: Special key: ${keyPressed} is not used in script!`); 
@@ -49,10 +58,10 @@ function Input(props) {
     }
 
     return (
-        <div className={`player__container error--bounce`}>
+        <div className={`player__container ${!isValid ? 'error--bounce' : ''}`}>
             {
                 letters.map((letter, key) => (
-                    <InputField key={key} letterCount={key} value={letter}/>
+                    <InputField key={key} letterCount={key} value={letter} validator={props.validator}/>
                 ))
 
             }
