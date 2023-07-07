@@ -12,6 +12,10 @@ function App() {
   turns.addPlayer({id: parseInt(21), name: 'Player 2'});
   turns.addPlayer({id: parseInt(turns.players.length), name: 'Player 3'});
 
+  turns.addPointToPlayer(0);
+  turns.addPointToPlayer(0);
+  turns.addPointToPlayer(2);
+
   turns.removePlayer(21);
 
   console.log(turns.players);
