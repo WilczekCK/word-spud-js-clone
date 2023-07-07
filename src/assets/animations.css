@@ -1,0 +1,10 @@
+.error--bounce{animation-name:error; animation-duration:.5s; animation-timing-function:linear}
+.error--bounce input:not(:last-of-type){border-color:crimson; border-style:groove}
+
+@keyframes error {
+    0% {transform: translateX(0); left:0;}
+    25% {transform: translateX(10%); left:-10%;}
+    50% {transform: translateX(0); left:0;}
+    75% {transform: translateX(-10%); left:10%;}
+    100% {transform: translateX(0); left:0;}
+}
