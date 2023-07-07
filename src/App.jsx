@@ -15,6 +15,7 @@ function App() {
   turns.addPointToPlayer(0);
   turns.addPointToPlayer(0);
   turns.addPointToPlayer(2);
+  turns.removePointToPlayer(0);
 
   turns.removePlayer(21);
 

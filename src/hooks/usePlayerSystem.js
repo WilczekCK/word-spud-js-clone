@@ -32,10 +32,18 @@ export default function usePlayerSystem() {
         debug && console.log(`usePlayerSystem.js: Added a point for player with array key: ${getPlayerKey}`); 
     }
 
+    function removePointToPlayer(playerId) {
+        const getPlayerKey = getPlayerArrayKey(playerId);
+        players[playerId].points--;
+
+        debug && console.log(`usePlayerSystem.js: Removed a point for player with array key: ${getPlayerKey}`); 
+    }
+
     return {
         players,
         addPlayer,
         removePlayer,
-        addPointToPlayer
+        addPointToPlayer,
+        removePointToPlayer,
     }
 }
