@@ -28,7 +28,7 @@ export default function useTurnSystem() {
         if (stage === 'judging') {
             const playerFreeArray = players.map(function(player) {
                 if (player.id !== playerGuessing) {
-                    return {id: player.id, didJudge: false}
+                    return {id: player.id, didJudge: false, judge: null}
                 }
             }).filter(player => player !== undefined);
             
@@ -44,6 +44,12 @@ export default function useTurnSystem() {
         const judgePlayersArray = judgeingStatus.map(function(judgePlayer) {
             if (parseInt(target.dataset.playerid) === judgePlayer.id) {
                 judgePlayer.didJudge = true;
+
+                if (['approve', 'disapprove'].indexOf(target.dataset.judge) === -1) {
+                    debug && console.log(`useTurnSystem.jsx: Violation, wrong judge, skip player ${judgePlayer.id}`);
+                } else {
+                    judgePlayer.judge = target.dataset.judge;
+                }
             }
 
             return judgePlayer;
