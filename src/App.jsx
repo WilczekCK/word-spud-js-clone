@@ -8,9 +8,9 @@ function App() {
   const turns = usePlayerSystem();
   const [words, setWords] = useState([]);
 
-  turns.addPlayer({id: parseInt(turns.players.length), name: 'Player'});
-  turns.addPlayer({id: parseInt(21), name: 'Player 2'});
-  turns.addPlayer({id: parseInt(turns.players.length), name: 'Player 3'});
+  turns.addPlayer({name: 'Player'});
+  turns.addPlayer({id: '2', name: 'Player 2'});
+  turns.addPlayer({id: turns.players.length, name: 'Player 3'});
 
   turns.addPointToPlayer(0);
   turns.addPointToPlayer(0);
