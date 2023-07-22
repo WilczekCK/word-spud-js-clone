@@ -2,6 +2,7 @@ import './App.css'
 import { useState } from 'react';
 
 import Input from './components/input';
+import Judging from './components/judging';
 import __toolbar from './components/admin/adminbar';
 
 
@@ -18,7 +19,6 @@ function App() {
   const playerArrayKey = players.getArrayKey(yourPlayer);
 
 
-
   // players.addPointTo(0);
   // players.addPointTo(0);
   // players.addPointTo(2);
@@ -33,7 +33,7 @@ function App() {
       setWords([...words, v]);
       
       // players.list[players.getArrayKey(yourPlayer)].points++;
-      turns.changeTurnStage('judgeing', yourPlayer, players.list);
+      turns.changeTurnStage('judging', yourPlayer, players.list);
     }
     
     return isCorrect;
@@ -57,7 +57,7 @@ function App() {
       <Input 
         appendedWord={(v) => changeWord(v)}
       />
-
+      <Judging yourPlayer={yourPlayer} writingPlayer={0} turnStage={turns.stage}/>
 
       { /* Admin stuff */ }
       <__toolbar 

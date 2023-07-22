@@ -10,8 +10,10 @@ import { useState } from 'react';
 
 export default function useTurnSystem() {
     const {debug} = config;
+
     let [turn, setTurn] = useState(0);
-    let [turnStage, setTurnStage] = useState('typing');
+    let [typingPlayer, setTypingPlayer] = useState(0);
+    let [turnStage, setTurnStage] = useState('guessing');
     let [judgeingStatus, setJudgeingStatus] = useState([]);
 
     const changeTurn = () => {
@@ -23,7 +25,7 @@ export default function useTurnSystem() {
     const changeTurnStage = (stage, playerGuessing, players) => {
         setTurnStage(stage);
         
-        if (stage === 'judgeing') {
+        if (stage === 'judging') {
             const playerFreeArray = players.map(function(player) {
                 if (player.id !== playerGuessing) {
                     return {id: player.id, didJudge: false}
@@ -34,13 +36,20 @@ export default function useTurnSystem() {
         }
     }
 
+    const changeTypingPlayer = (playerId) => {
+        setTypingPlayer(playerId);
+    }
+
 
 
     return {
+        typingPlayer,
+        changeTypingPlayer,
+
         turn,
         setNextTurn: changeTurn,
         
-        turnStage,
+        stage: turnStage,
         changeTurnStage,
 
         judgeingStatus
