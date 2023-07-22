@@ -2,6 +2,7 @@ import './App.css'
 import { useState } from 'react';
 
 import Input from './components/input';
+import Judging from './components/judging';
 import __toolbar from './components/admin/adminbar';
 
 
@@ -11,34 +12,23 @@ import useTurnSystem  from './hooks/useTurnSystem';
 
 function App() {
   const players = usePlayerSystem();
-  const turns = useTurnSystem();
+  const turns = useTurnSystem(players);
 
   const [words, setWords] = useState([]);
   const [yourPlayer, setYourPlayer] = useState(0); // id of player
   const playerArrayKey = players.getArrayKey(yourPlayer);
-
-
-
-  // players.addPointTo(0);
-  // players.addPointTo(0);
-  // players.addPointTo(2);
-  // players.addPointTo(2);
-  // players.removePointFrom(0);
-
-  // console.log(players.list);
 
   const changeWord = (v) => {
     const {lastLetter, wordCreated, isCorrect} = useSubmitValidator(v, words[words.length-1]);
     if (isCorrect) {
       setWords([...words, v]);
       
-      players.list[players.getArrayKey(yourPlayer)].points++;
+      // players.list[players.getArrayKey(yourPlayer)].points++;
+      turns.changeTurnStage('judging', yourPlayer, players.list);
     }
     
     return isCorrect;
   }
-
-  console.log(players.list);
 
   return (
     <>
@@ -57,6 +47,12 @@ function App() {
         appendedWord={(v) => changeWord(v)}
       />
 
+      <Judging 
+        yourPlayer={yourPlayer}
+        writingPlayer={turns.typingPlayer}
+        turnStage={turns.stage}
+        changeApproveStatus={turns.changePlayerJudgeStatus}
+      />
 
       { /* Admin stuff */ }
       <__toolbar 
