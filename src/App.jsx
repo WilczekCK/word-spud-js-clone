@@ -18,15 +18,6 @@ function App() {
   const [yourPlayer, setYourPlayer] = useState(0); // id of player
   const playerArrayKey = players.getArrayKey(yourPlayer);
 
-
-  // players.addPointTo(0);
-  // players.addPointTo(0);
-  // players.addPointTo(2);
-  // players.addPointTo(2);
-  // players.removePointFrom(0);
-
-  // console.log(players.list);
-
   const changeWord = (v) => {
     const {lastLetter, wordCreated, isCorrect} = useSubmitValidator(v, words[words.length-1]);
     if (isCorrect) {
@@ -38,8 +29,6 @@ function App() {
     
     return isCorrect;
   }
-
-  console.log(players.list);
 
   return (
     <>
@@ -57,7 +46,14 @@ function App() {
       <Input 
         appendedWord={(v) => changeWord(v)}
       />
-      <Judging yourPlayer={yourPlayer} writingPlayer={0} turnStage={turns.stage}/>
+
+      <Judging 
+        yourPlayer={yourPlayer}
+        writingPlayer={0}
+        turnStage={turns.stage}
+
+        changeApproveStatus={turns.changePlayerJudgeStatus}
+      />
 
       { /* Admin stuff */ }
       <__toolbar 

@@ -40,7 +40,17 @@ export default function useTurnSystem() {
         setTypingPlayer(playerId);
     }
 
+    const changePlayerJudgeStatus = ({target}) => {
+        const judgePlayersArray = judgeingStatus.map(function(judgePlayer) {
+            if (parseInt(target.dataset.playerid) === judgePlayer.id) {
+                judgePlayer.didJudge = true;
+            }
 
+            return judgePlayer;
+        })
+
+        setJudgeingStatus(judgePlayersArray);
+    }
 
     return {
         typingPlayer,
@@ -52,6 +62,7 @@ export default function useTurnSystem() {
         stage: turnStage,
         changeTurnStage,
 
-        judgeingStatus
+        judgeingStatus,
+        changePlayerJudgeStatus
     }
 }
