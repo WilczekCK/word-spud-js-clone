@@ -1,6 +1,6 @@
 import config from '../config';
 
-export default function useEndOfWord(word, previousWord) {
+export default function useSubmitValidator(word, previousWord) {
     const {debug} = config;
 
     function isPreviousLastLetterTheSame(word, previousWord) {

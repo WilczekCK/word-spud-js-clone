@@ -1,13 +1,14 @@
 import config from '../config';
+import { useState } from 'react';
 
 
 export default function usePlayerSystem() {
     const {debug} = config;
-    const players = [
-        {id: 1, name: 'Player 1', points: 0}
-        , {id: 213, name: 'Player 2', points:0}
-        , {id: 48, name: 'Player 3', points: 0}
-    ];
+    const [players, setPlayers] = useState([
+        {id: 0, name: 'Admin', points: 0}
+        // , {id: 213, name: 'Player 2', points:0}
+        // , {id: 48, name: 'Player 3', points: 0}
+    ]);
 
     function addPlayer(playerInfo) {
         debug && console.log(`usePlayerSystem.js: New player joined!`); 
@@ -30,22 +31,24 @@ export default function usePlayerSystem() {
 
         debug && console.log(`usePlayerSystem.js: New player ID set as: ${playerInfo.id}`); 
 
-        players.push({...playerInfo, points:0, isPlayerTurn: false});
+        setPlayers([...players, {...playerInfo, points:0, isPlayerTurn: false}]);
     }
 
 
     function removePlayer(playerIdToRemove) {
         debug && console.log(`usePlayerSystem.js: Removing player from game with ID: ${playerIdToRemove}`); 
         const getPlayerKey = getPlayerArrayKey(playerIdToRemove);
+        const filteredPlayers = players.filter(player => player !== players[getPlayerKey]);
 
-        players.splice(1, getPlayerKey);
+        setPlayers(filteredPlayers);
+
         debug && console.log(`usePlayerSystem.js: Removed player from game with ID: ${playerIdToRemove}, found in array with key: ${getPlayerKey}`); 
     }
 
     function getPlayerArrayKey(playerId) {
         debug && console.log(`usePlayerSystem.js: Looking for array key for player with ID: ${playerId}`); 
-        const getPlayerById = Object.values(players).find(player => parseInt(player.id) === parseInt(playerId));
 
+        const getPlayerById = players.find(({id}) => parseInt(id) === parseInt(playerId));
         return players.indexOf(getPlayerById);
     }
 
@@ -53,6 +56,7 @@ export default function usePlayerSystem() {
         const getPlayerKey = getPlayerArrayKey(playerId);
         players[playerId].points++;
 
+        setPlayers(players);
         debug && console.log(`usePlayerSystem.js: Added a point for player with array key: ${getPlayerKey}`); 
     }
 
@@ -60,6 +64,7 @@ export default function usePlayerSystem() {
         const getPlayerKey = getPlayerArrayKey(playerId);
         players[playerId].points--;
 
+        setPlayers(players);
         debug && console.log(`usePlayerSystem.js: Removed a point for player with array key: ${getPlayerKey}`); 
     }
 
