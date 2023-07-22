@@ -9,23 +9,36 @@ import usePlayerSystem from './hooks/usePlayerSystem';
 import useTurnSystem  from './hooks/useTurnSystem';
 
 function App() {
-  const [words, setWords] = useState([]);
   const players = usePlayerSystem();
   const turns = useTurnSystem();
 
-  players.add({name: 'Player'});
-  players.add({id: '2', name: 'Player 2'});
-  players.add({id: players.length, name: 'Player 3'});
+  const [words, setWords] = useState([]);
+  const [yourPlayer, setYourPlayer] = useState(1); // id of player
 
-  players.addPointTo(0);
-  players.addPointTo(0);
-  players.addPointTo(2);
-  players.addPointTo(2);
-  players.removePointFrom(0);
+  const setNextPlayer = () => {
+    const playerArrayKey = players.getArrayKey(yourPlayer);
 
-  players.remove(21);
+    if (playerArrayKey === players.list.length - 1) {
+      setYourPlayer(players.list[0].id);
+    } else {
+      setYourPlayer(players.list[playerArrayKey + 1].id);
+    }
+  }
 
-  console.log(players.list);
+
+  // players.add({name: 'Player'});
+  // players.add({id: '2', name: 'Player 2'});
+  // players.add({id: players.length, name: 'Player 3'});
+
+  // players.addPointTo(0);
+  // players.addPointTo(0);
+  // players.addPointTo(2);
+  // players.addPointTo(2);
+  // players.removePointFrom(0);
+
+  // players.remove(21);
+
+  // console.log(players.list);
 
   const changeWord = (v) => {
     const {lastLetter, wordCreated, isCorrect} = useSubmitValidator(v, words[words.length-1]);
@@ -39,6 +52,7 @@ function App() {
   return (
     <>
       <h1>Word spud</h1>
+      <p>Logged as: {players.list[players.getArrayKey(yourPlayer)].name}</p>
       <small>Turn: {turns.turn}</small>
 
       <ul>
@@ -51,7 +65,7 @@ function App() {
         appendedWord={(v) => changeWord(v)}
       />
 
-      <__turns nextTurn={turns.setNextTurn} />
+      <__turns nextTurn={turns.setNextTurn} nextPlayer={setNextPlayer}/>
     </>
   )
 }

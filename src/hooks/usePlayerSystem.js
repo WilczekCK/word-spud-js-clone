@@ -3,7 +3,11 @@ import config from '../config';
 
 export default function usePlayerSystem() {
     const {debug} = config;
-    const players = [];
+    const players = [
+        {id: 1, name: 'Player 1', points: 0}
+        , {id: 213, name: 'Player 2', points:0}
+        , {id: 48, name: 'Player 3', points: 0}
+    ];
 
     function addPlayer(playerInfo) {
         debug && console.log(`usePlayerSystem.js: New player joined!`); 
@@ -69,5 +73,6 @@ export default function usePlayerSystem() {
         remove: removePlayer,
         addPointTo: addPointToPlayer,
         removePointFrom: removePointToPlayer,
+        getArrayKey: getPlayerArrayKey,
     }
 }
