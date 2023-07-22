@@ -56,6 +56,16 @@ export default function useTurnSystem() {
         })
 
         setJudgeingStatus(judgePlayersArray);
+        if (areAllJudgesMade()) {
+            setJudgeingStatus([]);
+            setTurnStage('guessing');
+        }
+    }
+
+    const areAllJudgesMade = () => {
+        return judgeingStatus.every((judge) => {
+            return judge.didJudge === true;
+        })
     }
 
     return {
