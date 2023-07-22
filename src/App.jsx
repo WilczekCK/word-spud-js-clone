@@ -32,7 +32,8 @@ function App() {
     if (isCorrect) {
       setWords([...words, v]);
       
-      players.list[players.getArrayKey(yourPlayer)].points++;
+      // players.list[players.getArrayKey(yourPlayer)].points++;
+      turns.changeTurnStage('judgeing', yourPlayer, players.list);
     }
     
     return isCorrect;

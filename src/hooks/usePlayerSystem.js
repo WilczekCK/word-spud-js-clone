@@ -31,7 +31,7 @@ export default function usePlayerSystem() {
 
         debug && console.log(`usePlayerSystem.js: New player ID set as: ${playerInfo.id}`); 
 
-        setPlayers([...players, {...playerInfo, points:0, isPlayerTurn: false}]);
+        setPlayers([...players, {...playerInfo, points:0}]);
     }
 
 
