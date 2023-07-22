@@ -1,14 +1,17 @@
 import './App.css'
 import { useState } from 'react';
+
 import Input from './components/input';
+import __turns from './components/admin/turns';
+
 import useSubmitValidator from './hooks/useSubmitValidator';
 import usePlayerSystem from './hooks/usePlayerSystem';
-import useTurnSystem from './hooks/useTurnSystem';
+import useTurnSystem  from './hooks/useTurnSystem';
 
 function App() {
   const [words, setWords] = useState([]);
   const players = usePlayerSystem();
-  // const turns = useTurnSystem();
+  const turns = useTurnSystem();
 
   players.add({name: 'Player'});
   players.add({id: '2', name: 'Player 2'});
@@ -36,6 +39,8 @@ function App() {
   return (
     <>
       <h1>Word spud</h1>
+      <small>Turn: {turns.turn}</small>
+
       <ul>
         {words.map(word => (
           <li>{word}</li>
@@ -45,6 +50,8 @@ function App() {
       <Input 
         appendedWord={(v) => changeWord(v)}
       />
+
+      <__turns nextTurn={turns.setNextTurn} />
     </>
   )
 }
