@@ -64,10 +64,10 @@ export default function usePlayerSystem() {
     }
 
     return {
-        players,
-        addPlayer,
-        removePlayer,
-        addPointToPlayer,
-        removePointToPlayer,
+        list: players,
+        add: addPlayer,
+        remove: removePlayer,
+        addPointTo: addPointToPlayer,
+        removePointFrom: removePointToPlayer,
     }
 }

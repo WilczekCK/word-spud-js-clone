@@ -3,24 +3,26 @@ import { useState } from 'react';
 import Input from './components/input';
 import useSubmitValidator from './hooks/useSubmitValidator';
 import usePlayerSystem from './hooks/usePlayerSystem';
+import useTurnSystem from './hooks/useTurnSystem';
 
 function App() {
-  const turns = usePlayerSystem();
   const [words, setWords] = useState([]);
+  const players = usePlayerSystem();
+  // const turns = useTurnSystem();
 
-  turns.addPlayer({name: 'Player'});
-  turns.addPlayer({id: '2', name: 'Player 2'});
-  turns.addPlayer({id: turns.players.length, name: 'Player 3'});
+  players.add({name: 'Player'});
+  players.add({id: '2', name: 'Player 2'});
+  players.add({id: players.length, name: 'Player 3'});
 
-  turns.addPointToPlayer(0);
-  turns.addPointToPlayer(0);
-  turns.addPointToPlayer(2);
-  turns.removePointToPlayer(0);
+  players.addPointTo(0);
+  players.addPointTo(0);
+  players.addPointTo(2);
+  players.addPointTo(2);
+  players.removePointFrom(0);
 
-  turns.removePlayer(21);
+  players.remove(21);
 
-  console.log(turns.players);
-
+  console.log(players.list);
 
   const changeWord = (v) => {
     const {lastLetter, wordCreated, isCorrect} = useSubmitValidator(v, words[words.length-1]);
