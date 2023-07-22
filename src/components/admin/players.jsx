@@ -16,10 +16,25 @@ function __players(props) {
         props.removePlayer(playerToRemove);
     }
 
+    const addPlayer = () => {
+        props.addPlayer({name: `Player ${props.listPlayers.length}`});
+    }
+
+    const setNextPlayer = () => {
+        const playerArrayKey = props.playerArrayKey;
+    
+        if (playerArrayKey === props.listPlayers.length - 1) {
+          props.setYourPlayer(props.listPlayers[0].id);
+        } else {
+          props.setYourPlayer(props.listPlayers[playerArrayKey + 1].id);
+        }
+      }
+
     return (
         <div className="admin__players__container">
             <button onClick={listPlayers}>Show players</button>
-            <button onClick={props.addPlayer}>Add Player</button>
+            <button onClick={addPlayer}>Add Player</button>
+            <button onClick={setNextPlayer}>Next player</button>
             
             <button onClick={removePlayer}>
                 Remove player 

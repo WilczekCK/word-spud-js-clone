@@ -16,7 +16,6 @@ function __adminbar(props) {
             <div style={{display: menu === 'turns' ? 'flex' : 'none'}}>
                 <__turns
                     nextTurn={props.nextTurn} 
-                    nextPlayer={props.nextPlayer} 
                 />
             </div>
 
@@ -25,6 +24,8 @@ function __adminbar(props) {
                     addPlayer={props.addPlayer} 
                     removePlayer={props.removePlayer} 
                     listPlayers={props.listPlayers}
+                    playerArrayKey={props.playerArrayKey}
+                    setYourPlayer={props.setYourPlayer}
                 />
             </div>
 

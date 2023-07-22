@@ -15,21 +15,9 @@ function App() {
 
   const [words, setWords] = useState([]);
   const [yourPlayer, setYourPlayer] = useState(0); // id of player
+  const playerArrayKey = players.getArrayKey(yourPlayer);
 
-  const setNextPlayer = () => {
-    const playerArrayKey = players.getArrayKey(yourPlayer);
 
-    if (playerArrayKey === players.list.length - 1) {
-      setYourPlayer(players.list[0].id);
-      turns.setNextTurn();
-    } else {
-      setYourPlayer(players.list[playerArrayKey + 1].id);
-    }
-  }
-
-  const addNewPlayer = () => {
-    players.add({name: `Player ${players.list.length}`});
-  }
 
   // players.addPointTo(0);
   // players.addPointTo(0);
@@ -73,10 +61,13 @@ function App() {
       { /* Admin stuff */ }
       <__toolbar 
         nextTurn={turns.setNextTurn}
-        nextPlayer={setNextPlayer} 
-        addPlayer={addNewPlayer}
+        addPlayer={players.add}
         removePlayer={players.remove}
         listPlayers={players.list}
+
+        yourPlayer={yourPlayer}
+        setYourPlayer={setYourPlayer}
+        playerArrayKey={playerArrayKey}
       />
     </>
   )
