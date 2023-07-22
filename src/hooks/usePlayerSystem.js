@@ -72,6 +72,16 @@ export default function usePlayerSystem() {
         return players.map(({id}) => id === newId );
     }
 
+    function getNextPlayerInQueue(playerId){
+        const playerArrayKey = getPlayerArrayKey(playerId);
+    
+        if (playerArrayKey === players.length - 1) {
+          return players[0];
+        } else {
+          return players[playerArrayKey + 1];
+        }
+    }
+
     return {
         list: players,
         add: addPlayer,
@@ -79,5 +89,6 @@ export default function usePlayerSystem() {
         addPointTo: addPointToPlayer,
         removePointFrom: removePointToPlayer,
         getArrayKey: getPlayerArrayKey,
+        getNextPlayer: getNextPlayerInQueue,
     }
 }

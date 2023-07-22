@@ -12,7 +12,7 @@ import useTurnSystem  from './hooks/useTurnSystem';
 
 function App() {
   const players = usePlayerSystem();
-  const turns = useTurnSystem();
+  const turns = useTurnSystem(players);
 
   const [words, setWords] = useState([]);
   const [yourPlayer, setYourPlayer] = useState(0); // id of player
@@ -49,9 +49,8 @@ function App() {
 
       <Judging 
         yourPlayer={yourPlayer}
-        writingPlayer={0}
+        writingPlayer={turns.typingPlayer}
         turnStage={turns.stage}
-
         changeApproveStatus={turns.changePlayerJudgeStatus}
       />
 

@@ -1,5 +1,6 @@
 import config from '../config';
 import { useState } from 'react';
+import usePlayerSystem from './usePlayerSystem';
 
 /**
  *  What does it mean to be a turn?
@@ -8,7 +9,7 @@ import { useState } from 'react';
  *  Stage 3: New turn!                                            (name: typing)
  */
 
-export default function useTurnSystem() {
+export default function useTurnSystem(players) {
     const {debug} = config;
 
     let [turn, setTurn] = useState(0);
@@ -22,17 +23,25 @@ export default function useTurnSystem() {
         debug && console.log(`useTurnSystem.jsx: This turn is done, next turn number is ${turn}`);
     }
 
-    const changeTurnStage = (stage, playerGuessing, players) => {
+    const changeTurnStage = (stage) => {
         setTurnStage(stage);
         
         if (stage === 'judging') {
-            const playerFreeArray = players.map(function(player) {
-                if (player.id !== playerGuessing) {
+            debug && console.log(`useTurnSystem.jsx: Player wrote the word, start to judging stage!`);
+
+            const playerFreeArray = players.list.map(function(player) {
+                if (player.id !== typingPlayer) {
                     return {id: player.id, didJudge: false, judge: null}
                 }
             }).filter(player => player !== undefined);
             
             setJudgeingStatus(playerFreeArray);
+        }
+        
+        if (stage === 'guessing') {
+            debug && console.log(`useTurnSystem.jsx: All guessing were done, next player is: ${players.getNextPlayer(typingPlayer).id}`);
+
+            setTypingPlayer( players.getNextPlayer(typingPlayer).id );
         }
     }
 
@@ -43,12 +52,21 @@ export default function useTurnSystem() {
     const changePlayerJudgeStatus = ({target}) => {
         const judgePlayersArray = judgeingStatus.map(function(judgePlayer) {
             if (parseInt(target.dataset.playerid) === judgePlayer.id) {
+                const judge = target.dataset.judge;
                 judgePlayer.didJudge = true;
+                
 
-                if (['approve', 'disapprove'].indexOf(target.dataset.judge) === -1) {
+                if (['approve', 'disapprove'].indexOf(judge) === -1) {
                     debug && console.log(`useTurnSystem.jsx: Violation, wrong judge, skip player ${judgePlayer.id}`);
                 } else {
-                    judgePlayer.judge = target.dataset.judge;
+                    debug && console.log(`useTurnSystem.jsx: Player with ID ${judgePlayer.id} judged with ${judge}`);
+                    judgePlayer.judge = judge;
+
+                    if (judge === 'approve') {
+                        players.addPointTo(typingPlayer);
+                    } else {
+                        players.removePointFrom(typingPlayer);
+                    }
                 }
             }
 
@@ -58,7 +76,8 @@ export default function useTurnSystem() {
         setJudgeingStatus(judgePlayersArray);
         if (areAllJudgesMade()) {
             setJudgeingStatus([]);
-            setTurnStage('guessing');
+            changeTurn();
+            changeTurnStage('guessing');
         }
     }
 
