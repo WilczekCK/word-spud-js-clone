@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import Input from './components/input';
 import Judging from './components/judging';
+import PlayerList from './components/playerList';
 import __toolbar from './components/admin/adminbar';
 
 
@@ -32,6 +33,11 @@ function App() {
 
   return (
     <>
+      <PlayerList
+        players={players}
+        turns={turns}
+      />
+
       <h1>Word spud</h1>
       <p>Logged as: {players.list[players.getArrayKey(yourPlayer)].name}, points amount: {players.list[players.getArrayKey(yourPlayer)].points}</p>
 
