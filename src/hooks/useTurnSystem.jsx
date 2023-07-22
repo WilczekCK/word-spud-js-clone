@@ -1,6 +1,5 @@
 import config from '../config';
 import { useState } from 'react';
-import usePlayerSystem from './usePlayerSystem';
 
 /**
  *  What does it mean to be a turn?
